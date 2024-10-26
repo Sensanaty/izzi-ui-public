@@ -1,23 +1,39 @@
 ---
-const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1);
-
-const navlinkStyle = "font-bold underline decoration-2 decoration-transparent cursor-pointer hover:!decoration-emerald-500"
-
-function isActiveLink(path: string) {
-  if (currentPath === path) {
-    return '!decoration-emerald-700'
-  }
+interface Props {
+  isActive: "contact" | "";
 }
+
+const { isActive } = Astro.props;
+
+const navLinks = [
+  { href: "/", label: "DAP Aero", className: "text-xl" },
+  { href: "/contact", label: "Contact Us", className: "text-lg ml-4" }
+] as const;
 ---
 
 <header class="flex items-center bg-neutral-900 w-full px-4 py-1 border-b border-r">
   <nav class="flex items-center">
-    <a href="/" class:list={[navlinkStyle, 'text-xl', isActiveLink("")]}>DAP Aero</a>
-    <a href="/contact" class:list={[navlinkStyle, 'text-lg', 'ml-4', isActiveLink("contact")]}>Contact Us</a>
+    {navLinks.map(({ href, label, className }) => (
+      <a
+        href={href}
+        class:list={[
+          'font-bold hover:underline hover:decoration-emerald-500',
+          className,
+          { 'active': isActive === href.slice(1) }
+        ]}
+      >
+        {label}
+      </a>
+    ))}
   </nav>
 </header>
 
 <main class="flex flex-col mx-4 mt-2">
   <slot />
 </main>
+
+<style>
+  .active {
+    @apply underline decoration-2 decoration-emerald-700
+  }
+</style>
