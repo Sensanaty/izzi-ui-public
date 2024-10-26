@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+  import axios from "axios";
+
   let name = $state('');
   let email = $state('');
   let message = $state('');
@@ -15,13 +17,25 @@
 
   let hasSubmitted = $state(checkIfSubmitted() || false);
 
-  function submitContactForm() {
-    if (!name || !email || !message) {
+  let isSending = $state(false);
+
+  async function submitContactForm() {
+    if (isSending || !name || !email || !message) {
       return;
     }
 
-    hasSubmitted = true;
-    localStorage.setItem("submittedContactForm", String(new Date()));
+    isSending = true;
+
+    const api = axios.create({
+      baseURL: import.meta.env.PROD ? "http://localhost:8000/" : "https://api.izzicup.net/",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    api.post("contact-us", { name, email, message }).then(() => {
+      localStorage.setItem("submittedContactForm", String(new Date()));
+    }).finally(() => {
+      isSending = false;
+    })
   }
 </script>
 
