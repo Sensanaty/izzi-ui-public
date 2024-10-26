@@ -1,0 +1,50 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import ContactForm from "../components/ContactForm.svelte";
+---
+
+<html lang="en" class="h-screen bg-neutral-950 text-neutral-50">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <title>DAP Aero - Contact Us</title>
+  </head>
+
+  <body>
+    <MainLayout>
+      <h1 class="mx-auto text-2xl font-bold">
+        Feel free to contact us and we will get back to you as soon as we can
+      </h1>
+
+      <div class="flex flex-col mx-auto bg-neutral-900 w-fit p-3.5 border rounded mt-5 mb-6">
+        <h2 class="mx-auto font-bold text-emerald-600 mb-2">
+          Main Office
+        </h2>
+
+        <p class="text-center">
+          Jl. Tukad Buana Gunung Sari, Gg. Baja No.1 Batukandik
+        </p>
+
+        <p class="text-center">
+          80117, Denpasar, Bali, Indonesia
+        </p>
+      </div>
+
+      <div class="flex flex-col mx-auto bg-neutral-900 w-fit p-3.5 border rounded">
+        <h2 class="mx-auto font-bold text-emerald-600 mb-2">
+          Email
+        </h2>
+        <a href="mailto:sale@dap-aero.com" class="underline mx-auto decoration-2 hover:decoration-emerald-600 mb-4">
+          sale@dap-aero.com
+        </a>
+
+        <h2 class="mx-auto font-bold text-emerald-600 mb-2">
+          Contact Form
+        </h2>
+
+        <ContactForm client:only="svelte" />
+      </div>
+    </MainLayout>
+  </body>
+</html>
