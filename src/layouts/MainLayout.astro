@@ -1,0 +1,23 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+
+const navlinkStyle = "font-bold underline decoration-2 decoration-transparent cursor-pointer hover:!decoration-emerald-500"
+
+function isActiveLink(path: string) {
+  if (currentPath === path) {
+    return '!decoration-emerald-700'
+  }
+}
+---
+
+<header class="flex items-center bg-neutral-900 w-full px-4 py-1 border-b border-r">
+  <nav class="flex items-center">
+    <a class:list={[navlinkStyle, 'text-xl', isActiveLink("")]}>DAP Aero</a>
+    <a class:list={[navlinkStyle, 'text-lg', 'ml-4', isActiveLink("contact")]}>Contact Us</a>
+  </nav>
+</header>
+
+<main class="flex flex-col mx-4 mt-2">
+  <slot />
+</main>
