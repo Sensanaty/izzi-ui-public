@@ -33,6 +33,7 @@
 
     api.post("contact-us", { name, email, message }).then(() => {
       localStorage.setItem("submittedContactForm", String(new Date()));
+      hasSubmitted = true;
     }).finally(() => {
       isSending = false;
     })
